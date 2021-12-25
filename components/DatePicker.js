@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 import DatePicker from 'react-native-neat-date-picker';
-import { INPUT_FIELD_HEIGHT } from '../helpers/constants';
+import { INPUT_FIELD_HEIGHT, PUBLISHED_DATE_FIELD } from '../helpers/constants';
 import getFormattedTimeFromDate from '../helpers/utils';
 import PropTypes from 'prop-types';
 
@@ -24,7 +24,7 @@ const DatePickerCalender = ({ handleSelectedDate, handleChange, dateValue }) => 
 
     return (
         <View>
-            <TextInput style={styles.datePickerContainer} placeholder="please enter or select book release date"  onChangeText={(value) => handleChange('publishedDate', value)} value={dateValue} />
+            <TextInput style={styles.datePickerContainer} placeholder="please enter or select book release date"  onChangeText={(value) => handleChange(PUBLISHED_DATE_FIELD, value)} value={dateValue} />
             <TouchableOpacity title={'open'} onPress={openDatePicker} style={styles.datePickerButton} >
                 <Image source={require('../assets/calendar.png')} style={styles.datePickerIcon} />
             </TouchableOpacity>

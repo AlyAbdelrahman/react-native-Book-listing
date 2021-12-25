@@ -3,7 +3,8 @@ import { Text, View, StyleSheet, FlatList, Image, StatusBar, SafeAreaView, Touch
 import getBooksList from '../../services/books-service'
 import { SPACING, BOOK_IMAGE_SIZE, NO_IMAGE_FOUND_URL, BG_IMAGE_URL } from '../../helpers/constants';
 import AddButton from '../../components/AddButton';
-import 'react-native-get-random-values';    
+import 'react-native-get-random-values'; 
+import TrancatedText from '../../components/TrancatedText';   
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -44,7 +45,7 @@ export default function BooksList() {
                             />
                             <View style={styles.bookDescriptionContainer}>
                                 {item.title !== '' && <Text style={styles.bookTitle}>{item.title}</Text>}
-                                {item.description !== '' && <Text style={styles.bookDescription}>{item.description}</Text>}
+                                {item.description !== '' && <TrancatedText postDescription={item.description}/>}
                                 {item.publishedDate !== '' && <Text style={styles.publishedDate}>{item.publishedDate}</Text>}
                             </View>
                         </View>
