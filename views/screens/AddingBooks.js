@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, SafeAreaView, View, StyleSheet, Image, TextInput, Button, ScrollView, TouchableOpacity } from 'react-native';
-import { BG_IMAGE_URL, SPACING, INPUT_FIELD_HEIGHT, TITLE_FIELD, DESCRIPTION_FIELD, THUMBNAIL_FIELD, PUBLISHED_DATE_FIELD } from '../../helpers/constants';
+import { BG_IMAGE_URL, SPACING, INPUT_FIELD_HEIGHT, TITLE_FIELD, DESCRIPTION_FIELD, THUMBNAIL_FIELD, PUBLISHED_DATE_FIELD, BOOKS_LIST_PAGE } from '../../helpers/constants';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import 'react-native-get-random-values';
@@ -24,79 +24,52 @@ export default function AddingBooks(props) {
     const handleTimePicker = (value) => {
         let formFieldCopy = { ...formFields };
         let formErrorsCopy = { ...formErrors };
-        formErrorsCopy['publishedDate'] = false;
-        formFieldCopy['publishedDate'] = value;
+        formErrorsCopy[PUBLISHED_DATE_FIELD] = false;
+        formFieldCopy[PUBLISHED_DATE_FIELD] = value;
         setFormErrors(formErrorsCopy);
         setFormFields(formFieldCopy);
     }
     const handleValidation = () => {
-        console.log('>>form', formFields)
         let isFourmCorrect = true;
         let errors = { ...formErrors };
-        let formIsValid = true;
-        //Title
-        if (!formFields[TITLE_FIELD] || formFields[TITLE_FIELD].trim() === '') {
-            formIsValid = false;
-            errors[TITLE_FIELD] = "Book title is required";
-        }
-        //Description
-        if (!formFields["description"] || formFields["description"].trim() === '') {
-            formIsValid = false;
-            errors["description"] = "Book description is required";
-        }
-        // published Date
-        if (!formFields["publishedDate"] || formFields["publishedDate"].trim() === '') {
-            formIsValid = false;
-            errors["publishedDate"] = "Book publishedDate is required";
-        }
-        if (!formFields["thumbnail"] || formFields["thumbnail"].trim() === '') {
-            formIsValid = false;
-            errors["thumbnail"] = "Book thumbnail is required";
-        }
+        let requiredValidationsFields = [TITLE_FIELD, DESCRIPTION_FIELD, PUBLISHED_DATE_FIELD, THUMBNAIL_FIELD];
+        requiredValidationsFields.map((requiredField)=>{
+            if (!formFields[requiredField] || formFields[requiredField].trim() === '') {
+                errors[requiredField] = `Book ${requiredField} is required`;
+            }
+        })
         setFormErrors(errors);
         isFourmCorrect = Object.entries(errors).every(fieldError => fieldError[1] === false);
         if (isFourmCorrect) {
             route.params.setBooks((oldVal) => [...oldVal, formFields]);
-            navigation.navigate('Books list')
+            navigation.navigate(BOOKS_LIST_PAGE)
         }
 
     }
     const showImagePicker = async () => {
         // Ask the user for the permission to access the media library 
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
         if (permissionResult.granted === false) {
             alert("You've refused to allow this app to access your photos!");
             return;
         }
-
         const result = await ImagePicker.launchImageLibraryAsync();
-
-        // Explore the result
-        console.log(result);
-
         if (!result.cancelled) {
             setPickedImagePath(result.uri);
-            handleChange('thumbnail', result.uri)
+            handleChange(THUMBNAIL_FIELD, result.uri)
         }
     }
     const openCamera = async () => {
         // Ask the user for the permission to access the camera
         const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
-
         if (permissionResult.granted === false) {
             alert("You've refused to allow this app to access your camera!");
             return;
         }
-
         const result = await ImagePicker.launchCameraAsync();
-
-        // Explore the result
-        console.log(result);
-
         if (!result.cancelled) {
             setPickedImagePath(result.uri);
-            handleChange('thumbnail', result.uri)
+            handleChange(THUMBNAIL_FIELD, result.uri)
         }
     }
 
@@ -122,33 +95,33 @@ export default function AddingBooks(props) {
                         <Text style={styles.inputTitle}>Book Description </Text>
                         <TextInput
                             style={styles.input}
-                            onChangeText={(value) => handleChange('description', value)}
-                            value={formFields['description']}
+                            onChangeText={(value) => handleChange(DESCRIPTION_FIELD, value)}
+                            value={formFields[DESCRIPTION_FIELD]}
                             placeholder="please enter book description"
                             multiline
                         />
-                        {formErrors['description'] && <Text style={styles.errorMessage}>{formErrors['description']}</Text>}
+                        {formErrors[DESCRIPTION_FIELD] && <Text style={styles.errorMessage}>{formErrors[DESCRIPTION_FIELD]}</Text>}
 
                         <Text style={styles.inputTitle}>Book published date </Text>
-                        <DatePickerCalender handleSelectedDate={handleTimePicker} handleChange={handleChange} dateValue={formFields["publishedDate"]} />
-                        {formErrors['publishedDate'] && <Text style={styles.errorMessage}>{formErrors['publishedDate']}</Text>}
+                        <DatePickerCalender handleSelectedDate={handleTimePicker} handleChange={handleChange} dateValue={formFields[PUBLISHED_DATE_FIELD]} />
+                        {formErrors[PUBLISHED_DATE_FIELD] && <Text style={styles.errorMessage}>{formErrors[PUBLISHED_DATE_FIELD]}</Text>}
 
                         <Text style={styles.inputTitle}>Book thumbnail </Text>
                         <View style={styles.imageContainer}>
                             {
-                                pickedImagePath !== '' && (formFields['thumbnail'] === pickedImagePath) && <Image
-                                    source={{ uri: pickedImagePath || formFields['thumbnail'] }}
+                                pickedImagePath !== '' && (formFields[THUMBNAIL_FIELD] === pickedImagePath) && <Image
+                                    source={{ uri: pickedImagePath || formFields[THUMBNAIL_FIELD] }}
                                     style={styles.image}
                                 />
                             }
                         </View>
                         <TextInput
                             style={styles.input}
-                            onChangeText={(value) => handleChange('thumbnail', value)}
-                            value={formFields['thumbnail']}
+                            onChangeText={(value) => handleChange(THUMBNAIL_FIELD, value)}
+                            value={formFields[THUMBNAIL_FIELD]}
                             placeholder="please enter book thumbnail url or choose "
                         />
-                        {formErrors['thumbnail'] && <Text style={styles.errorMessage}>{formErrors['thumbnail']}</Text>}
+                        {formErrors[THUMBNAIL_FIELD] && <Text style={styles.errorMessage}>{formErrors[THUMBNAIL_FIELD]}</Text>}
 
                         <View style={styles.uploadImageOptionsContainer}>
                             <TouchableOpacity onPress={showImagePicker} style={styles.uploadImageButton} >
@@ -215,6 +188,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         color: 'white'
     },
-
-
 })

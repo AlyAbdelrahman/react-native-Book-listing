@@ -6,7 +6,10 @@ import BooksList from './views/screens/BooksList';
 import AddingBooks from './views/screens/AddingBooks';
 import { ADD_BOOK_PAGE, BOOKS_LIST_PAGE } from './helpers/constants'
 import { LogBox } from 'react-native';
-LogBox.ignoreLogs(['...']);
+
+LogBox.ignoreLogs([
+ 'Non-serializable values were found in the navigation state',
+]);
 
 export default function App() {
   const Stack = createNativeStackNavigator();

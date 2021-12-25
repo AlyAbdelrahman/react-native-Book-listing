@@ -1,13 +1,15 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import PropTypes from 'prop-types';
+import { ADD_BOOK_PAGE } from '../helpers/constants'
 
 export default function AddButton({ setBooks }) {
     const navigation = useNavigation();
     return (
         <View style={styles.AddNewBookButtonContainer}>
             <TouchableOpacity
-                onPress={() => navigation.navigate('Adding Book', { setBooks })}
+                onPress={() => navigation.navigate(ADD_BOOK_PAGE, { setBooks })}
                 style={styles.button}
                 activeOpacity={0.9}
             >
@@ -15,6 +17,9 @@ export default function AddButton({ setBooks }) {
             </TouchableOpacity>
         </View>
     )
+}
+AddButton.propTypes = {
+    setBooks: PropTypes.func.isRequired
 }
 const styles = StyleSheet.create({
     AddNewBookButtonContainer: {
