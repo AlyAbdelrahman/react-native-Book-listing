@@ -16,7 +16,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={BOOKS_LIST_PAGE} screenOptions={{
-        headerShown: true, headerStyle: { backgroundColor: '#6c4f8b66' },headerTitleAlign:'center', co
+        headerShown: true, headerStyle: { backgroundColor: '#6c4f8b66' },headerTitleAlign:'center',
       }}>
         <Stack.Screen name={BOOKS_LIST_PAGE} component={BooksList} />
         <Stack.Screen name={ADD_BOOK_PAGE} component={AddingBooks} />
