@@ -24,7 +24,7 @@ const DatePickerCalender = ({ handleSelectedDate, handleChange, dateValue }) => 
 
     return (
         <View>
-            <TextInput style={styles.datePickerContainer} placeholder="please enter or select book release date"  onChangeText={(value) => handleChange(PUBLISHED_DATE_FIELD, value)} value={dateValue} />
+            <TextInput style={styles.datePickerContainer} placeholder="please enter or select book published date"  onChangeText={(value) => handleChange(PUBLISHED_DATE_FIELD, value)} value={dateValue} />
             <TouchableOpacity title={'open'} onPress={openDatePicker} style={styles.datePickerButton} >
                 <Image source={require('../assets/calendar.png')} style={styles.datePickerIcon} />
             </TouchableOpacity>
@@ -52,14 +52,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 10,
-        backgroundColor: '#273365',
+        // backgroundColor: '#273365',
         color: 'white',
         position: 'absolute',
-        right: 0
+        right: 0,
     },
     datePickerIcon: {
         width: '90%',
-        height: '90%'
+        height: '90%',
     }
 })
 DatePickerCalender.defaultProps = {

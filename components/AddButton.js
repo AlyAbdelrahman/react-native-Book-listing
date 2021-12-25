@@ -23,7 +23,11 @@ AddButton.propTypes = {
 }
 const styles = StyleSheet.create({
     AddNewBookButtonContainer: {
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0
     },
     buttonText: {
         fontSize: 20,

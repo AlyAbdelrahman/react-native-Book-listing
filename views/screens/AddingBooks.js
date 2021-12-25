@@ -33,7 +33,7 @@ export default function AddingBooks(props) {
         let isFourmCorrect = true;
         let errors = { ...formErrors };
         let requiredValidationsFields = [TITLE_FIELD, DESCRIPTION_FIELD, PUBLISHED_DATE_FIELD, THUMBNAIL_FIELD];
-        requiredValidationsFields.map((requiredField)=>{
+        requiredValidationsFields.map((requiredField) => {
             if (!formFields[requiredField] || formFields[requiredField].trim() === '') {
                 errors[requiredField] = `Book ${requiredField} is required`;
             }
@@ -131,9 +131,12 @@ export default function AddingBooks(props) {
                                 <Text styles={styles.uploadImageButtonText}>Open camera</Text>
                             </TouchableOpacity>
                         </View>
-
-                        <Button onPress={handleValidation} title='submit' color="red" />
                     </View>
+                    <TouchableOpacity onPress={handleValidation} style={styles.AddButton}  >
+                        <Text style={styles.submitButton}>
+                            Add book
+                        </Text>
+                    </TouchableOpacity>
                 </ScrollView>
             </View>
         </SafeAreaView>
@@ -145,7 +148,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     formContainer: {
-        padding: SPACING
+        padding: SPACING,
     },
     inputTitle: {
         fontSize: 18,
@@ -181,11 +184,29 @@ const styles = StyleSheet.create({
     uploadImageButton: {
         width: '50%',
         height: 40,
-        backgroundColor: 'grey',
+        marginTop: 10,
+        backgroundColor: '#bfc9e1',
+        borderRadius: 10,
         margin: 1,
         justifyContent: 'center',
         display: 'flex',
         alignItems: 'center',
         color: 'white'
     },
+    AddButton: {
+        backgroundColor: '#744c76',
+        display: 'flex',
+        justifyContent: 'center',
+        height: 40,
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        left: 0
+    },
+    submitButton: {
+        color: 'white',
+        fontWeight: '500',
+        textAlign: 'center',
+        fontSize: 20
+    }
 })
