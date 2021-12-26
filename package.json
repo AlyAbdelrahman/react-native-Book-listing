@@ -10,7 +10,7 @@
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.0",
     "@react-native-community/masked-view": "^0.1.11",
-    "@react-navigation/native": "^6.0.2",
+    "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.1.0",
     "expo": "~44.0.0",
     "expo-image-picker": "~12.0.1",
@@ -24,9 +24,9 @@
     "react-native-get-random-values": "^1.7.2",
     "react-native-modal": "^13.0.0",
     "react-native-neat-date-picker": "^1.1.4",
-    "react-native-reanimated": "^2.2.0",
+    "react-native-reanimated": "^2.3.1",
     "react-native-safe-area-context": "^3.3.2",
-    "react-native-screens": "^3.6.0",
+    "react-native-screens": "^3.10.1",
     "react-native-web": "0.17.1",
     "uuid": "^8.3.2"
   },
