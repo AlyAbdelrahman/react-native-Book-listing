@@ -3,6 +3,7 @@ export const SPACING = 10;
 export const BOOK_IMAGE_SIZE = 70;
 export const NO_IMAGE_FOUND_URL = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQZUYP1nWYaAFpSvhTYPwzO91_T6Sbdiysw-juuJQ5daDmBCjKm3oA_oP2toTI4Ni8Y98&usqp=CAU';
 export const BG_IMAGE_URL = 'https://images.pexels.com/photos/1231265/pexels-photo-1231265.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940';
+export const LOADER_IMAGE_URL = 'https://i.pinimg.com/originals/b9/1e/11/b91e1131ca20f6369aa68d21cb3a8960.gif';
 export const INPUT_FIELD_HEIGHT = 50;
 
 export const ADD_BOOK_PAGE = 'Adding Book';

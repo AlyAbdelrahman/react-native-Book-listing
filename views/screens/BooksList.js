@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, StyleSheet, FlatList, Image, StatusBar, SafeAreaView, TouchableOpacity } from 'react-native';
 import getBooksList from '../../services/books-service'
-import { SPACING, BOOK_IMAGE_SIZE, NO_IMAGE_FOUND_URL, BG_IMAGE_URL } from '../../helpers/constants';
+import { SPACING, BOOK_IMAGE_SIZE, NO_IMAGE_FOUND_URL, BG_IMAGE_URL, LOADER_IMAGE_URL } from '../../helpers/constants';
 import AddButton from '../../components/AddButton';
-import 'react-native-get-random-values'; 
-import TrancatedText from '../../components/TrancatedText';   
+import 'react-native-get-random-values';
+import TrancatedText from '../../components/TrancatedText';
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -25,32 +25,38 @@ export default function BooksList() {
         getBooksList().then(mapBooksData).then(booksData => setBooks(booksData));
     }, [])
     return (
-        <SafeAreaView style={{flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.homeContainer}>
                 <Image
                     source={{ uri: BG_IMAGE_URL }}
                     style={StyleSheet.absoluteFillObject}
                     blurRadius={80}
                 />
-                <FlatList
-                    data={books}
-                    keyExtractor={item => item.key }
-                    contentContainerStyle={styles.booksListContainer}
-                    renderItem={({ item }) => {
-                        return <View style={styles.bookItemContainer}>
-                            <Image
-                                source={{ uri: item.thumbnail }}
-                                style={styles.imageContainer}
-                                resizeMode="cover"
-                            />
-                            <View style={styles.bookDescriptionContainer}>
-                                {item.title !== '' && <Text style={styles.bookTitle}>{item.title}</Text>}
-                                {item.description !== '' && <TrancatedText postDescription={item.description}/>}
-                                {item.publishedDate !== '' && <Text style={styles.publishedDate}>{item.publishedDate}</Text>}
+                {books.length > 0 ?
+                    <FlatList
+                        data={books}
+                        keyExtractor={item => item.key}
+                        contentContainerStyle={styles.booksListContainer}
+                        renderItem={({ item }) => {
+                            return <View style={styles.bookItemContainer}>
+                                <Image
+                                    source={{ uri: item.thumbnail }}
+                                    style={styles.imageContainer}
+                                    resizeMode="cover"
+                                />
+                                <View style={styles.bookDescriptionContainer}>
+                                    {item.title !== '' && <Text style={styles.bookTitle}>{item.title}</Text>}
+                                    {item.description !== '' && <TrancatedText postDescription={item.description} />}
+                                    {item.publishedDate !== '' && <Text style={styles.publishedDate}>{item.publishedDate}</Text>}
+                                </View>
                             </View>
-                        </View>
-                    }} />
-                    <AddButton setBooks={setBooks}/>
+                        }} />
+                    : <Image
+                    source={{ uri: LOADER_IMAGE_URL }}
+                    style={StyleSheet.absoluteFillObject}
+                    blurRadius={80}
+                />}
+                <AddButton setBooks={setBooks} />
             </View>
         </SafeAreaView>
     )
@@ -59,6 +65,7 @@ const styles = StyleSheet.create({
     homeContainer: {
         flex: 1,
         backgroundColor: '#fff',
+        paddingBottom: '10%'
     },
     bookDescriptionContainer: {
         maxWidth: '80%'
@@ -86,7 +93,7 @@ const styles = StyleSheet.create({
             height: 10
         },
         shadowOpacity: .3,
-        shadowRadius: 20
+        shadowRadius: 20,
     },
     bookTitle: {
         fontSize: 22,
@@ -100,5 +107,10 @@ const styles = StyleSheet.create({
         fontSize: 14,
         opacity: 0.8,
         color: '#0099cc'
+    },
+    loadingBooksLoader: {
+        width: '100%',
+        height: '100%',
+        zIndex:15
     }
 });

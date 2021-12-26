@@ -53,7 +53,9 @@ export default function AddingBooks(props) {
             alert("You've refused to allow this app to access your photos!");
             return;
         }
-        const result = await ImagePicker.launchImageLibraryAsync();
+        const result = await ImagePicker.launchImageLibraryAsync({
+            presentationStyle: 0,
+        });
         if (!result.cancelled) {
             setPickedImagePath(result.uri);
             handleChange(THUMBNAIL_FIELD, result.uri)
@@ -145,10 +147,12 @@ export default function AddingBooks(props) {
 const styles = StyleSheet.create({
     AddingBookContainer: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#fff'
     },
     formContainer: {
         padding: SPACING,
+        paddingBottom: 50
+
     },
     inputTitle: {
         fontSize: 18,
