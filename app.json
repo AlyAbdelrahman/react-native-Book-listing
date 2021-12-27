@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/favicon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.aly_abdelrahman.BooksProject"
     },
     "web": {
       "favicon": "./assets/favicon.png"
